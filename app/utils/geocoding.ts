@@ -11,8 +11,8 @@ export const getCleanCityName = async (lat: number, lng: number): Promise<{ clea
     const response = await fetch(osmUrl, { headers: { 'User-Agent': 'WeatherApp/1.0' } });
     const { address: { city, town, village, state, country } } = await response.json();
     const rawCityName = city || town || village || state || country || "Unknown";
-    const detailedCity = [city, town, village, state, country, "Unknown"].filter(e => !!e).join(", ");
-    return { cleanCity: removeVietnameseTones(rawCityName), detailedCity: detailedCity };
+    const detailedCity = [city, town, village, state, country].filter(e => !!e).join(", ");
+    return { cleanCity: removeVietnameseTones(rawCityName), detailedCity: !detailedCity? "Unknown" : detailedCity };
   } catch (error) {
     console.error("Lỗi ngược định vị địa lý:", error);
     return { cleanCity: "Ho Chi Minh", detailedCity: "Ho Chi Minh, Vietnam" };
