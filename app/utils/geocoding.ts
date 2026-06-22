@@ -9,10 +9,10 @@ export const getCleanCityName = async (lat: number, lng: number): Promise<{ clea
   try {
     const osmUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
     const response = await fetch(osmUrl, { headers: { 'User-Agent': 'WeatherApp/1.0' } });
-    const data = await response.json();
-    const rawCityName = data.address.city || data.address.town || data.address.village || data.address.state || "Vietnam";
-    const detailedCity = [data.address.city, data.address.town , data.address.village, data.address.state, "Vietnam"].join(", ");
-    return {cleanCity:removeVietnameseTones(rawCityName),detailedCity:detailedCity};
+    const { address: { city, town, village, state, country } } = await response.json();
+    const rawCityName = city || town || village || state || country || "Unknown";
+    const detailedCity = [city, town, village, state, country, "Unknown"].filter(e => !!e).join(", ");
+    return { cleanCity: removeVietnameseTones(rawCityName), detailedCity: detailedCity };
   } catch (error) {
     console.error("Lỗi ngược định vị địa lý:", error);
     return { cleanCity: "Ho Chi Minh", detailedCity: "Ho Chi Minh, Vietnam" };
