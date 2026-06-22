@@ -68,7 +68,8 @@ export default function Dashboard() {
     setLoading(true);
     setLocationType("map");
     try {
-      const { cleanCity } = await getCleanCityName(lat, lng);
+      const { cleanCity, detailedCity } = await getCleanCityName(lat, lng);
+      setCity(detailedCity);
       connectStream(cleanCity);
     } catch (err) {
       console.error("Lỗi Click bản đồ:", err);

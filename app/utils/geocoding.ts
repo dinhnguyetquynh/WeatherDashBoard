@@ -12,7 +12,7 @@ export const getCleanCityName = async (lat: number, lng: number): Promise<{ clea
     const { address: { city, town, village, state, country } } = await response.json();
     const rawCityName = city || town || village || state || country || "Unknown";
     const detailedCity = [city, town, village, state, country].filter(e => !!e).join(", ");
-    return { cleanCity: removeVietnameseTones(rawCityName), detailedCity: !detailedCity? "Unknown" : detailedCity };
+    return { cleanCity: removeVietnameseTones(rawCityName), detailedCity: detailedCity || "Unknown" };
   } catch (error) {
     console.error("Lỗi ngược định vị địa lý:", error);
     return { cleanCity: "Ho Chi Minh", detailedCity: "Ho Chi Minh, Vietnam" };
