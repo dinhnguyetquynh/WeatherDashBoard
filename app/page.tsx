@@ -27,6 +27,7 @@ export default function Dashboard() {
   
   const { weather, loading, setLoading, connectStream } = useWeatherStream(true);
   const isInitialized = useRef(false);
+  const [city,setCity] = useState<string | null>(null);
 
   const fetchCurrentLocation = useCallback(() => {                     
     if (navigator.geolocation) {
@@ -38,6 +39,7 @@ export default function Dashboard() {
             const { latitude, longitude } = position.coords;
             setClickedCoords([latitude, longitude]);
             const cleanCityName = await getCleanCityName(latitude, longitude);
+            setCity(cleanCityName);
             connectStream(cleanCityName);
           } catch (err) {
             console.error("Lỗi lấy định vị:", err);
@@ -83,6 +85,7 @@ export default function Dashboard() {
               locationType={locationType} 
               loading={loading} 
               weather={weather} 
+              city={city}
             />
 
             <MapSection 

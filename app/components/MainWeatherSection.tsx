@@ -6,9 +6,10 @@ interface MainWeatherSectionProps {
   locationType: "current" | "map";
   loading: boolean;
   weather: any;
+  city: string | null;
 }
 
-export default function MainWeatherSection({ locationType, loading, weather }: MainWeatherSectionProps) {
+export default function xMainWeatherSection({ locationType, loading, weather , city}: MainWeatherSectionProps) {
   return (
     // Đổi thành md: 6 để chia đôi 50% màn hình
     <Grid size={{ xs: 12, md: 6 }}>
@@ -28,6 +29,7 @@ export default function MainWeatherSection({ locationType, loading, weather }: M
         ) : weather ? (
           <WeatherCard 
             weather={weather} 
+            city={city}
             type={locationType} 
             showForecast={true} 
             customLabel={locationType === "current" ? "VỊ TRÍ CỦA TÔI" : "ĐIỂM ĐÃ CHỌN"} 

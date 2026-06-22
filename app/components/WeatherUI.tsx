@@ -73,7 +73,7 @@ export const ForecastWidget = ({ forecastDays }: { forecastDays: any[] }) => {
 };
 
 // --- 3. MAIN WEATHER CARD ---
-export const WeatherCard = ({ weather, type, showForecast = false, customLabel }: { weather: any, type: "current" | "map" | "city", showForecast?: boolean, customLabel?: string }) => {
+export const WeatherCard = ({ weather, city, type, showForecast = false, customLabel }: { weather: any, city: string | null, type: "current" | "map" | "city", showForecast?: boolean, customLabel?: string }) => {
   const cardStyles = {
     current: { border: '1px solid', borderColor: '#38bdf8', bg: 'rgba(56, 189, 248, 0.05)', iconColor: '#38bdf8' }, 
     map: { border: '1px solid', borderColor: '#fbbf24', bg: 'rgba(251, 191, 36, 0.05)', iconColor: '#fbbf24' },    
@@ -87,7 +87,7 @@ export const WeatherCard = ({ weather, type, showForecast = false, customLabel }
           <LocationOnIcon sx={{ color: cardStyles.iconColor, fontSize: 20 }} />
           <Box sx={{ flexGrow: 1 }}>
             {customLabel && <Typography variant="caption" sx={{ color: cardStyles.iconColor, fontWeight: 700, display: 'block', mb: -0.5 }}>{customLabel}</Typography>}
-            <Typography variant="subtitle1" noWrap sx={{ fontWeight: 700, color: '#f8fafc' }}>{weather.location.name}</Typography>
+            <Typography variant="subtitle1" noWrap sx={{ fontWeight: 700, color: '#f8fafc' }}>{city}</Typography>
           </Box>
           <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 500 }}>{weather.location.country}</Typography>
         </Stack>
@@ -134,5 +134,5 @@ export const CityWeatherCardWrapper = ({ cityName }: { cityName: string }) => {
   if (loading) return <WeatherCardSkeleton />;
   if (!weather) return <MiniStatusCard message={`Đang tải dữ liệu ${cityName}...`} />;
   
-  return <WeatherCard weather={weather} type="city" />;
+  return <WeatherCard weather={weather} city={cityName} type="city" />;
 };
