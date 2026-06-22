@@ -38,9 +38,9 @@ export default function Dashboard() {
           try {
             const { latitude, longitude } = position.coords;
             setClickedCoords([latitude, longitude]);
-            const cleanCityName = await getCleanCityName(latitude, longitude);
-            setCity(cleanCityName);
-            connectStream(cleanCityName);
+            const { cleanCity, detailedCity } = await getCleanCityName(latitude, longitude);
+            setCity(detailedCity);
+            connectStream(cleanCity);
           } catch (err) {
             console.error("Lỗi lấy định vị:", err);
             setLoading(false);
@@ -51,6 +51,10 @@ export default function Dashboard() {
       );
     }
   }, [setLoading, connectStream]);
+
+  const getDetailLocation = useCallback(async () => {
+
+  }, []);
 
   useEffect(() => {
     if (!isInitialized.current) {
@@ -64,8 +68,8 @@ export default function Dashboard() {
     setLoading(true);
     setLocationType("map");
     try {
-      const cleanCityName = await getCleanCityName(lat, lng);
-      connectStream(cleanCityName);
+      const { cleanCity } = await getCleanCityName(lat, lng);
+      connectStream(cleanCity);
     } catch (err) {
       console.error("Lỗi Click bản đồ:", err);
       setLoading(false);
