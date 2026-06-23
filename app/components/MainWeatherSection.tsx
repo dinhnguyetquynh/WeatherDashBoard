@@ -9,7 +9,7 @@ interface MainWeatherSectionProps {
   city: string | null;
 }
 
-export default function xMainWeatherSection({ locationType, loading, weather , city}: MainWeatherSectionProps) {
+export default function MainWeatherSection({ locationType, loading, weather , city}: MainWeatherSectionProps) {
   return (
     // Đổi thành md: 6 để chia đôi 50% màn hình
     <Grid size={{ xs: 12, md: 6 }}>

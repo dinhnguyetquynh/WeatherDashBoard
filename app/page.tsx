@@ -52,10 +52,6 @@ export default function Dashboard() {
     }
   }, [setLoading, connectStream]);
 
-  const getDetailLocation = useCallback(async () => {
-
-  }, []);
-
   useEffect(() => {
     if (!isInitialized.current) {
       isInitialized.current = true;
@@ -76,7 +72,7 @@ export default function Dashboard() {
       setLoading(false);
     }
   };
-
+//=> jsx
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
